@@ -1,0 +1,22 @@
+{
+  "name": "projectfulljs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoloxDev/RenforcementFullJsProject.git"
+  },
+  "author": "Loris LABARRE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LoloxDev/RenforcementFullJsProject/issues"
+  },
+  "homepage": "https://github.com/LoloxDev/RenforcementFullJsProject#readme"
+}
