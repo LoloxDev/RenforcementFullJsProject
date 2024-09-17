@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/LoloxDev/RenforcementFullJsProject/issues"
   },
-  "homepage": "https://github.com/LoloxDev/RenforcementFullJsProject#readme"
+  "homepage": "https://github.com/LoloxDev/RenforcementFullJsProject#readme",
+  "dependencies": {
+    "vuex": "^4.1.0"
+  }
 }
