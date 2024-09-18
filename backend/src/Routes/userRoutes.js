@@ -14,7 +14,7 @@ const userController = require('../Controllers/UserController')
  * @function
  * @memberof module:userRoutes
  */
-router.get('/users', userController.getUsers);
+router.get('/getUsers', userController.getUsers);
 
 /**
  * POST /signup

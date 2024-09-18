@@ -4,7 +4,7 @@
       <form @submit.prevent="signup">
         <input v-model="email" type="email" placeholder="Email" />
         <input v-model="password" type="password" placeholder="Mot de passe" />
-        <select v-model="selected">
+        <select v-model="role">
           <option disabled value="">Rôle</option>
           <option>super</option>
           <option>admin</option>
@@ -21,14 +21,26 @@
       return {
         email: '',
         password: '',
-        selected: '',
+        role: '',
+        message: ''
       };
     },
     methods: {
-      signup() {
-        // envoie les données d'inscription sur store vuex
-        this.$store.dispatch('signup', { email: this.email, password: this.password });
+      async signup() {
+      try {
+        // Envoie les données au store Vuex
+        const response = await this.$store.dispatch('signup', {
+          email: this.email,
+          password: this.password,
+          role: this.role,
+        });
+        
+        // Gère la réponse après l'inscription
+        this.message = response.message || 'Inscription réussie!';
+      } catch (error) {
+        this.message = error.message || 'Erreur lors de l\'inscription';
       }
+    },
     }
   };
   </script>
