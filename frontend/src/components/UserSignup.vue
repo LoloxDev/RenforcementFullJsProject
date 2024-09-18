@@ -4,6 +4,12 @@
       <form @submit.prevent="signup">
         <input v-model="email" type="email" placeholder="Email" />
         <input v-model="password" type="password" placeholder="Mot de passe" />
+        <select v-model="selected">
+          <option disabled value="">Rôle</option>
+          <option>super</option>
+          <option>admin</option>
+          <option>guest</option>
+        </select>
         <button type="submit">S'inscrire</button>
       </form>
     </div>
@@ -14,7 +20,8 @@
     data() {
       return {
         email: '',
-        password: ''
+        password: '',
+        selected: '',
       };
     },
     methods: {

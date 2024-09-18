@@ -4,16 +4,26 @@
 
 const express = require('express');
 const router = express.Router();
-const db_utils = require('../../config/db_utils');
+const userController = require('../Controllers/UserController')
 // const rolesMiddleware = require('../middlewares/rolesMiddleware');
 
 /**
  * GET /users
  * Route pour récupérer la liste des utilisateurs.
- * @name GET /users
+ * @name GET /getUsers
  * @function
  * @memberof module:userRoutes
  */
-router.get('/', db_utils.main);
+router.get('/users', userController.getUsers);
+
+/**
+ * POST /signup
+ * Route pour inscrire un nouvel utilisateur.
+ * @name POST /signup
+ * @function
+ * @memberof module:userRoutes
+ */
+router.post('/signup', userController.signup);
+
 
 module.exports = router;
