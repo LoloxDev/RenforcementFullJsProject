@@ -1,13 +1,10 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import store from './store';
+import { createApp } from 'vue';
+import App from './App.vue';
+import store from './Store';
+import router from './router';
 
-Vue.use(Vuex);
-
-new Vue({
-    el: '#app',
-    store,
-    data: {
-        message: 'Hello from Vue with Vuex!'
-    }
-});
+// Créer l'app et la monter ?? l10
+const app = createApp(App);
+app.use(store);
+app.use(router);
+app.mount('#app');
