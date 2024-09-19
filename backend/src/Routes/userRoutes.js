@@ -9,15 +9,6 @@ const rolesMiddleware = require('../Middlewares/rolesMiddleware');
 const auth = require('../Middlewares/authMiddleware');
 
 /**
- * GET /users
- * Route pour récupérer la liste des utilisateurs.
- * @name GET /getUsers
- * @function
- * @memberof module:userRoutes
- */
-router.get('/getUsers', auth, rolesMiddleware(['admin', 'super']), userController.getUsers);
-
-/**
  * POST /login
  * Route qu'un utilisateur se connecte.
  * @name post /login
@@ -34,6 +25,34 @@ router.post('/login', userController.login);
  * @memberof module:userRoutes
  */
 router.post('/signup', userController.signup);
+
+/**
+ * GET /users
+ * Route pour récupérer la liste des utilisateurs.
+ * @name GET /getUsers
+ * @function
+ * @memberof module:userRoutes
+ */
+router.get('/getUsers', auth, rolesMiddleware(['admin', 'super']), userController.getUsers);
+
+/**
+ * DELETE /deleteUser/:email
+ * Route pour inscrire un nouvel utilisateur.
+ * @name DELETE /deleteUser
+ * @function
+ * @memberof module:userRoutes
+ */
+router.delete('/deleteUser/:email', auth, rolesMiddleware(['admin', 'super']), userController.deleteUser);
+
+/**
+ * PUT /updateUser/:email
+ * Route pour inscrire un nouvel utilisateur.
+ * @name PUT /updateUser
+ * @function
+ * @memberof module:userRoutes
+ */
+router.put('/updateUser/:email', auth, rolesMiddleware(['admin', 'super']), userController.updateUser);
+
 
 
 module.exports = router;

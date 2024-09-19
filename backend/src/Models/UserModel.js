@@ -39,7 +39,51 @@ async function registerUser(email, password, role) {
   }
 }
 
+async function deleteUser(email) {
+  try {
+    const collection = await connectToMongo('TrainJsMongoProject', 'users');
+    const result = await collection.deleteOne({ email });
+
+    if (result.deletedCount === 0) {
+      throw new Error('Utilisateur non trouvé');
+    }
+
+    return result;
+  } catch (error) {
+    console.error('Suppression utilisateur KO :', error);
+    throw error;
+  }
+}
+
+async function updateUser(email, newData) {
+  try {
+    const collection = await connectToMongo('TrainJsMongoProject', 'users');
+    
+    if (newData.password) {
+      newData.password = await bcrypt.hash(newData.password, 10);
+    }
+
+    const result = await collection.updateOne(
+      { email },
+      { $set: newData }
+    );
+
+    if (result.matchedCount === 0) {
+      throw new Error('Utilisateur non trouvé');
+    }
+
+    return result;
+  } catch (error) {
+    console.error('Modification utilisateur KO :', error);
+    throw error;
+  }
+}
+
+
+
 module.exports = {
   registerUser,
-  find
+  find,
+  deleteUser,
+  updateUser,
 };

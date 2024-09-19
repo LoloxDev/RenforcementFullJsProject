@@ -1,20 +1,19 @@
-const { registerUser, find } = require('../Models/UserModel');
+const { registerUser, find, deleteUser, updateUser } = require('../Models/UserModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-exports.getUsers = async (req, res) => {
+const JWT_SECRET = 'poulet';
+
+exports.getUsers = async (req, res, next) => {
     try {
         const users = await find();
         res.json(users);
     } catch (error) {
-        res.status(500).json({ error: 'Récupération des users KO' });
+        next(error);
     }
-}
+};
 
-
-const JWT_SECRET = 'poulet';
-
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
@@ -36,20 +35,40 @@ exports.login = async (req, res) => {
 
     res.status(200).json({ token, message: 'Connexion OK' });
   } catch (error) {
-    res.status(500).json({ message: 'Connexion KO' });
+    next(error);
   }
 };
 
-
-
-exports.signup = async (req, res) => {
-    const { email, password, role } = req.body;
+exports.signup = async (req, res, next) => {
+  const { email, password, role } = req.body;
 
   try {
     const result = await registerUser(email, password, role);
     res.status(201).json({ message: 'Inscription OK' });
   } catch (error) {
-    res.status(500).json({ message: 'Inscription KO' });
+    next(error);
+  }
+};
+
+exports.deleteUser = async (req, res, next) => {
+  const { email } = req.params;
+
+  try {
+    await deleteUser(email);
+    res.status(200).json({ message: 'Utilisateur supprimé OK' });
+  } catch (error) {
+    next(error);
   }
 }
 
+exports.updateUser = async (req, res, next) => {
+  const { email } = req.params;
+  const newData = req.body;
+
+  try {
+    await updateUser(email, newData);
+    res.status(200).json({ message: 'Utilisateur mis à jour OK' });
+  } catch (error) {
+    next(error);
+  }
+}
