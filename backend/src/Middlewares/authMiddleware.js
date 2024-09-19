@@ -1,6 +1,18 @@
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'poulet'; 
 
+/**
+ * @module authMiddleware
+ */
+
+/**
+ * Middleware pour vérifier si l'utilisateur est authentifié via son jeton.
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @returns {void}
+ * @memberof module:authMiddleware
+*/
 const auth = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
 

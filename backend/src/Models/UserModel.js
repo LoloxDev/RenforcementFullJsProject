@@ -5,7 +5,7 @@ async function find(email = null) {
   try {
     const collection = await connectToMongo('TrainJsMongoProject', 'users');
     if (email) {
-      const result = await collection.find({ email: normalizedEmail }).toArray();
+      const result = await collection.find({ email }).toArray();
       return result;
     }
 
@@ -15,9 +15,6 @@ async function find(email = null) {
     throw error;
   }
 }
-
-
-
 
 async function registerUser(email, password, role) {
   try {

@@ -12,6 +12,7 @@
         </select>
         <button type="submit">S'inscrire</button>
       </form>
+      <p v-if="message">{{ message }}</p>
     </div>
   </template>
   
@@ -35,6 +36,7 @@
         });
         
         this.message = response.message || 'Inscription OK';
+        this.$router.push('/');
       } catch (error) {
         this.message = error.message || 'Inscription KO';
       }

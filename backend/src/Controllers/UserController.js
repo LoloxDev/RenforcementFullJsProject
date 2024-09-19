@@ -1,10 +1,6 @@
-const express = require('express');
-const { registerUser, findAllUsers } = require('../Models/UserModel');
-const router = express.Router();
-const User = require('../Models/UserModel');
+const { registerUser, find } = require('../Models/UserModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { find } = require('../Models/UserModel');
 
 exports.getUsers = async (req, res) => {
     try {
@@ -32,7 +28,11 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'MDP KO' });
     }
 
-    const token = jwt.sign({ userId: user[0]._id }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(
+      { userId: user[0]._id, email: user[0].email, role: user[0].role }, 
+      JWT_SECRET, 
+      { expiresIn: '1h' }
+    );
 
     res.status(200).json({ token, message: 'Connexion OK' });
   } catch (error) {

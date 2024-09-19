@@ -40,7 +40,9 @@ export default {
 
         if (response.ok) {
           localStorage.setItem('token', data.token);
+          await this.$store.dispatch('login', { email, token: data.token });
           this.message = data.message;
+          this.$router.push('/');
         } else {
           this.message = data.message;
         }

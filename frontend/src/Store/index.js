@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import jwtDecode from 'jwt-decode';
 
 export default createStore({
   state: {
@@ -12,7 +13,6 @@ export default createStore({
   actions: {
     async signup({ commit }, payload) {
       try {
-        // Appel au backend pour l'inscription
         const response = await fetch('http://localhost:3000/users/signup', {
           method: 'POST',
           headers: {
@@ -25,28 +25,46 @@ export default createStore({
           }),
         });
 
-        // Vérifie si la requête est réussie
         if (!response.ok) {
-          throw new Error('Erreur lors de l\'inscription');
+          throw new Error('Inscription KO');
         }
 
-        // Récupère la réponse JSON
         const data = await response.json();
 
-        // Met à jour le store avec l'utilisateur
         const user = { email: payload.email, role: payload.role };
         commit('SET_USER', user);
 
-        return data; // Renvoie les données pour gérer l'affichage dans le composant
+        return data;
       } catch (error) {
-        throw new Error(error.message || 'Erreur lors de l\'inscription');
+        throw new Error(error.message || 'Inscription KO');
       }
     },
 
     login({ commit }, payload) {
+      const token = payload.token;
+      localStorage.setItem('token', token);
+    
       const user = { email: payload.email };
       commit('SET_USER', user);
-    }
+    },
+
+    checkAuth({ commit }) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const decodedToken = jwtDecode(token);
+          const user = { email: decodedToken.email, role: decodedToken.role };
+          commit('SET_USER', user);
+        } catch (error) {
+          console.error('Décodage token KO:', error);
+          localStorage.removeItem('token');
+          commit('CLEAR_USER');
+        }
+      } else {
+        commit('CLEAR_USER');
+      }
+    },
+
   },
   getters: {
     isAuthenticated(state) {

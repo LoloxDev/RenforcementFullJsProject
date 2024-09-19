@@ -10,4 +10,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 const app = createApp(App);
 app.use(store);
 app.use(router);
+
+store.dispatch('checkAuth');
 app.mount('#app');
