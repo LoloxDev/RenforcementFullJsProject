@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../Controllers/UserController')
 // const rolesMiddleware = require('../middlewares/rolesMiddleware');
+const auth = require('../Middlewares/authMiddleware');
 
 /**
  * GET /users
@@ -14,7 +15,16 @@ const userController = require('../Controllers/UserController')
  * @function
  * @memberof module:userRoutes
  */
-router.get('/getUsers', userController.getUsers);
+router.get('/getUsers', auth, userController.getUsers);
+
+/**
+ * POST /login
+ * Route qu'un utilisateur se connecte.
+ * @name post /login
+ * @function
+ * @memberof module:userRoutes
+ */
+router.post('/login', userController.login);
 
 /**
  * POST /signup

@@ -1,20 +1,27 @@
 const bcrypt = require('bcrypt');
 const { connectToMongo } = require('../../config/db_utils');
 
-async function findAllUsers() {
+async function find(email = null) {
   try {
     const collection = await connectToMongo('TrainJsMongoProject', 'users');
+    if (email) {
+      const result = await collection.find({ email: normalizedEmail }).toArray();
+      return result;
+    }
+
     return await collection.find({}).toArray();
   } catch (error) {
-    console.error('Erreur lors de la récupération des utilisateurs :', error);
+    console.error('Récupération users KO :', error);
     throw error;
   }
 }
 
+
+
+
 async function registerUser(email, password, role) {
   try {
     const collection = await connectToMongo('TrainJsMongoProject', 'users');
-
     const existingUser = await collection.findOne({ email });
     if (existingUser) {
       throw new Error('Utilisateur déjà existant');
@@ -30,12 +37,12 @@ async function registerUser(email, password, role) {
 
     return result;
   } catch (error) {
-    console.error('Erreur lors de l’inscription :', error);
+    console.error('Inscription KO :', error);
     throw error;
   }
 }
 
 module.exports = {
-  findAllUsers,
-  registerUser
+  registerUser,
+  find
 };

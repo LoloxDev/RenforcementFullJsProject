@@ -28,17 +28,15 @@
     methods: {
       async signup() {
       try {
-        // Envoie les données au store Vuex
         const response = await this.$store.dispatch('signup', {
           email: this.email,
           password: this.password,
           role: this.role,
         });
         
-        // Gère la réponse après l'inscription
-        this.message = response.message || 'Inscription réussie!';
+        this.message = response.message || 'Inscription OK';
       } catch (error) {
-        this.message = error.message || 'Erreur lors de l\'inscription';
+        this.message = error.message || 'Inscription KO';
       }
     },
     }
