@@ -5,7 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../Controllers/UserController')
-// const rolesMiddleware = require('../middlewares/rolesMiddleware');
+const rolesMiddleware = require('../Middlewares/rolesMiddleware');
 const auth = require('../Middlewares/authMiddleware');
 
 /**
@@ -15,7 +15,7 @@ const auth = require('../Middlewares/authMiddleware');
  * @function
  * @memberof module:userRoutes
  */
-router.get('/getUsers', auth, userController.getUsers);
+router.get('/getUsers', auth, rolesMiddleware(['admin', 'super']), userController.getUsers);
 
 /**
  * POST /login
