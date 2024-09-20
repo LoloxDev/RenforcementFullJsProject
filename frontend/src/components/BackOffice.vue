@@ -1,15 +1,15 @@
 <template>
-  <div class="container mt-5">
+  <div class="backoffice-container">
     <h1>Back-Office</h1>
     <div v-if="$store.getters.isAuthenticated">
-      <p>Vous êtes connecté en tant que : {{ $store.state.user.email }}</p>
+      <p>Vous êtes connecté en tant que : <strong>{{ $store.state.user.email }}</strong></p>
 
       <div class="table-responsive">
         <table class="table table-bordered table-hover">
           <thead class="table-dark">
             <tr>
               <th>Email</th>
-              <th>Role</th>
+              <th>Rôle</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -26,12 +26,12 @@
         </table>
       </div>
 
-      <!-- Popup édit -->
-      <div v-if="userToEdit" class="mt-4">
+      <!-- Popup pour éditer -->
+      <div v-if="userToEdit" class="edit-container mt-4">
         <h3>Modifier l'utilisateur : {{ userToEdit.email }}</h3>
         <form @submit.prevent="updateUser">
           <div class="mb-3">
-            <label for="role" class="form-label">Role</label>
+            <label for="role" class="form-label">Rôle</label>
             <select v-model="userToEdit.role" class="form-select">
               <option value="admin">Admin</option>
               <option value="super">Super</option>
@@ -42,8 +42,7 @@
           <button type="button" class="btn btn-secondary ms-2" @click="cancelEdit">Annuler</button>
         </form>
       </div>
-      <!-- --------- -->
-
+      <!-- Fin popup -->
 
     </div>
     <div v-else>
@@ -73,7 +72,7 @@ export default {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           },
         });
-        
+
         if (!response.ok) {
           throw new Error('Recup users KO');
         }
@@ -150,4 +149,50 @@ export default {
 </script>
 
 <style scoped>
+.backoffice-container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #007bff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.table-responsive {
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+}
+
+.edit-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.edit-container h3 {
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .backoffice-container {
+    padding: 15px;
+  }
+}
 </style>

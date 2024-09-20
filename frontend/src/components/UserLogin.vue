@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="login-container">
     <h2>Connexion</h2>
-    <form @submit.prevent="login">
+    <form @submit.prevent="login" class="login-form">
       <input v-model="email" type="email" placeholder="Email" />
       <input v-model="password" type="password" placeholder="Mot de passe" />
       <button type="submit">Se connecter</button>
     </form>
-    <p v-if="message">{{ message }}</p>
+    <p v-if="message" class="error-message">{{ message }}</p>
   </div>
 </template>
 
@@ -55,4 +55,47 @@ export default {
 </script>
 
 <style scoped>
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  margin-top: 15px;
+  color: red;
+}
 </style>
