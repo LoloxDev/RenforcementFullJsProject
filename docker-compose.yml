@@ -1,0 +1,39 @@
+version: '3'
+services:
+  # Service pour le backend
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/mydatabase
+    depends_on:
+      - mongo
+    networks:
+      - mynetwork
+
+  # Service pour le frontend
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+
+  # Service MongoDB
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - mynetwork
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  mynetwork:
+
+volumes:
+  mongo-data:

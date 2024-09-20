@@ -7,7 +7,13 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "npm test"
+    "test": "jest",
+    "start": "node ./src/server.js"
+  },
+  "jest": {
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -28,5 +34,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
     "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
