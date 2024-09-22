@@ -21,3 +21,9 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Tuto Cypress
+/doc
+
+# Ignorer les fichiers de documentation Cypress
+cypress/e2e/doc/
