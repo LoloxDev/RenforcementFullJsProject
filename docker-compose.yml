@@ -1,0 +1,40 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/TrainJsMongoProject
+    depends_on:
+      - mongo
+    networks:
+      - mynetwork
+    restart: always
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+      - mongo
+    networks:
+      - mynetwork
+    restart: always
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - mynetwork
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+networks:
+  mynetwork:
+
+volumes:
+  mongo-data:

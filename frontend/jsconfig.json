@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": ["node"]
+  }
+}
