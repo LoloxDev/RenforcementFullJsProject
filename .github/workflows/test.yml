@@ -1,0 +1,56 @@
+name: Run tests
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: npm i back
+        run: |
+          cd backend
+          npm install
+
+      - name: npm i front
+        run: |
+          cd frontend
+          npm install
+
+      - name: build front
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Démarrer le serv front
+        run: |
+          cd frontend
+          npx http-server dist &
+
+      - name: Attendre que le serveur soit ok
+        run: |
+          npx wait-on http://localhost:8080 --timeout 120000
+
+      - name: Tests Cypress end to end
+        run: |
+          cd frontend
+          npx cypress run --headless
+
+      - name: Tests jest back
+        run: |
+          cd backend
+          npm run test
+
+      - name: Tests unit jest front 
+        run: |
+          cd frontend
+          npm run test
