@@ -1,5 +1,5 @@
 # Étape 1 : Construire l'application Vue.js
-FROM node:14 AS build
+FROM node:16 AS build
 
 # Créer et définir le répertoire de travail dans le conteneur
 WORKDIR /usr/src/app
