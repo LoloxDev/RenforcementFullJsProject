@@ -36,3 +36,5 @@ Depuis le back office, les utilisateurs peuvent :
 - **Dockerisation** : 
   - Un Dockerfile est présent pour le frontend et le backend, et un docker-compose.yml à la racine pour construire les conteneurs front back et mango
   - Les différentes couches sont contenerisés dans des conteneurs distincts pour une meilleure isolation des services
+ - **Tests** :
+ - Les tests back/front et cypress sont intégrés dans une pipeline CI/CD Github actions
